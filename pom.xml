@@ -6,11 +6,21 @@
 	<version>0.0.1</version>
 	<name>template Maven Webapp</name>
 	<url>http://maven.apache.org</url>
+	<properties>
+		<!-- spring版本号 -->
+		<spring.version>4.3.7.RELEASE</spring.version>
+	</properties>
 	<dependencies>
+		<!-- SpringMVC的依赖 会自动引入相关的包 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
+			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

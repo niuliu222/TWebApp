@@ -21,14 +21,18 @@
 	href="commons/jsExt/jquery-easyui-1.5.2/themes/icon.css">
 <!-- 自定义js -->
 <script type="text/javascript" src="commons/js/teacherFormatter.js"></script>
+<!-- 自定义的js脚本 -->
+<script type="text/javascript" src="commons/js/commons.js"></script>
+<script type="text/javascript" src="commons/js/user/userOper.js"></script>
+<link rel="stylesheet" href="commons/css/user.css">
 
 </head>
 <body>
-	<div class="easyui-layout" style="margin: 20px 20px 20px 20px;">
+	<div id="tt" class="easyui-layout" style="margin: 20px 20px 20px 20px;">
 		<table id="dg" class="easyui-datagrid" title="用户列表"
-			style="width: 100%; height: 400px;"
+			style="width: 100%; height: 400px;pagination-num{width:200px}"
 			data-options="rownumbers:true,striped:true,fitColumns:true,singleSelect:true,autoRowHeight:true,pagination:true,
-                pageSize:10,url:'${pageContext.request.contextPath}/getUsers',method:'get',toolbar:'#toolbar'">
+                pageSize:12,pageList:[12,100,200,300],url:'${pageContext.request.contextPath}/getUsers',method:'get',toolbar:'#toolbar'">
 			<thead>
 				<tr>
 					<th data-options="field:'id',width:100">ID</th>
@@ -51,6 +55,46 @@
 				href="#" class="easyui-linkbutton"
 				data-options="iconCls:'icon-remove'" onclick="del()">删除</a>
 		</div>
+	</div>
+
+	<!-- create user dialog -->
+	<div id="dlg" class="easyui-dialog"
+		data-options="iconCls:'icon-save',resizable:true,modal:true"
+		style="width: 400px; height: 280px; padding: 10px 20px" closed="true"
+		buttons="#dlg-buttons">
+		<div class="ftitle">用户信息</div>
+		<form id="fm" method="post">
+			<div class="fitem">
+				<label for="name">用户名:</label> <input name="name"
+					class="easyui-validatebox" type="text" data-options="required:true">
+			</div>
+			<div class="fitem">
+				<label for="age">年 龄:</label> <input name="age"
+					class="easyui-numberbox" type="text"
+					data-options="required:true,validType:'number'">
+			</div>
+			<div class="fitem">
+				<label for="gender">性 别:</label> <input id="state1" name="gender"
+					value="男" type="radio" checked="true" />男 <input id="state2"
+					name="gender" value="女" type="radio" />女
+			</div>
+			<div class="fitem">
+				<label for="email">Email:</label> <input name="email"
+					class="easyui-validatebox" type="text"
+					data-options="required:true,validType:'email'">
+			</div>
+			<div class="fitem">
+				<label for="teacherId">教 师:</label> <input id="cc"
+					class="easyui-combobox" name="teacherId"
+					data-options="valueField:'id',textField:'name',panelHeight:80,editable:false,method:'get',url:'${pageContext.request.contextPath}/getTeacherComboData'">
+			</div>
+		</form>
+	</div>
+	<div id="dlg-buttons">
+		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-ok'"
+			onclick="save()">Save</a> <a href="#" class="easyui-linkbutton"
+			data-options="iconCls:'icon-cancel'"
+			onclick="javascript:$('#dlg').dialog('close')">Cancel</a>
 	</div>
 </body>
 </html>

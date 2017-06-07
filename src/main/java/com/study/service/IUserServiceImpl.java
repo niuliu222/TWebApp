@@ -19,6 +19,12 @@ public class IUserServiceImpl implements IUserService
 	UserMapper userMapper;
 
 	@Override
+	public int insertUser(User usr)
+	{
+	    return userMapper.insert(usr);
+	}
+	
+	@Override
 	public User getUserById(String id)
 	{
 		return userMapper.selectByPrimaryKey(Long.parseLong(id));
@@ -39,4 +45,17 @@ public class IUserServiceImpl implements IUserService
 	{
 		return userMapper.getCount();
 	}
+	
+	@Override
+	public int deleteById(String id)
+	{
+	    return userMapper.deleteByPrimaryKey(Long.parseLong(id));
+	}
+	
+	@Override
+	public int updateById(User user)
+	{
+	    return userMapper.updateByPrimaryKey(user);
+	}
+	
 }

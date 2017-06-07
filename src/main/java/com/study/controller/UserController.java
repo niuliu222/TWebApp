@@ -1,6 +1,8 @@
 package com.study.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.study.model.User;
+import com.study.service.ITeacherService;
 import com.study.service.IUserService;
 
 @Controller
@@ -26,7 +30,75 @@ public class UserController
 
 	@Autowired
 	IUserService userService;
+	
+	@Autowired
+	ITeacherService teacherService;
+	
+	@RequestMapping(value = "/users/{id}", method = RequestMethod.PUT)
+	@ResponseBody
+	public Object updateUserProc(@PathVariable("id") long id, 
+	        User user)
+	{
+	    int iRet = userService.updateById(user);
+	    Map<String, Object> map = new HashMap<String, Object>();
+	    if (iRet == 0)
+	    {
+	        logger.error("updateUserProc: 更新失败");
+	        map.put("status", "更新失败");
+	        map.put("retCode", -1);
+	    } else
+	    {
+	        logger.info("updateUserProc: 更新成功");
+	        map.put("status", "更新成功");
+	        map.put("retCode", 0);
+	    }
+	    return map;
+	}
 
+	@RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
+	@ResponseBody
+	public Object deleteUserProc(@PathVariable("id") String id)
+	{
+	    int iRet = userService.deleteById(id);
+	    Map<String, Object> map = new HashMap<String, Object>();
+	    if (iRet == 0)
+	    {
+	        logger.error("deleteUserProc: 删除失败");
+	        map.put("status", "删除失败");
+	        map.put("retCode", -1);
+	    } else
+	    {
+	        logger.info("deleteUserProc: 删除成功");
+	        map.put("status", "删除成功");
+	        map.put("retCode", 0);
+	    }
+	    return map;
+	}
+	
+	@RequestMapping(value = "/users", method = RequestMethod.POST)
+	@ResponseBody
+	public Object addUsersProc(User user)
+	{
+	    // 处理新id生成
+	    // 处理teacher类对象
+	    user.setTeacher(teacherService.getTeacherById(user.getTeacherId()));
+	    int iRet = userService.insertUser(user);
+	    long newId = user.getId();
+	    Map<String, Object> map = new HashMap<String, Object>();
+	    if (iRet == 0)
+	    {
+	        logger.info("addUsersProc: " + JSON.toJSON("新建失败：" + JSON.toJSONStringWithDateFormat(user, "yyyy-MM-dd HH:mm:ss")));
+	        map.put("status", "新建失败");
+	        map.put("retCode", -1);
+	    } else
+	    {
+	        logger.info("addUsersProc: " + JSON.toJSON("新建用户：" + JSON.toJSONStringWithDateFormat(user, "yyyy-MM-dd HH:mm:ss")));
+	        map.put("status", "新建成功");
+	        map.put("retCode", 0);
+	    }
+	    return map;
+	}
+	
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
 	public String getUsersProc()
 	{

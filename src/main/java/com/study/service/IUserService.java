@@ -12,4 +12,10 @@ public interface IUserService
 	public List<User> getUsersPagenition(int page, int rows);
 
 	public long getCount();
+	
+	public int insertUser(User usr);
+	
+	public int deleteById(String id);
+	
+	public int updateById(User user);
 }

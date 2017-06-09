@@ -48,6 +48,7 @@ public class TestUser
 		}
 
 		User user = userService.getUserById("1");
+		assertTrue(user != null);
 		assertTrue(user.getName().equals("user1"));
 		logger.info(JSON.toJSONStringWithDateFormat(user, "yyyy-MM-dd HH:mm:ss"));
 		System.out.println(user.getName());

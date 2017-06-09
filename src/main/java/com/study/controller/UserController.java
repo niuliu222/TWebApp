@@ -77,26 +77,27 @@ public class UserController
 	
 	@RequestMapping(value = "/users", method = RequestMethod.POST)
 	@ResponseBody
-	public Object addUsersProc(User user)
+	public JSONObject addUserProc(User user)
 	{
 	    // 处理新id生成
 	    // 处理teacher类对象
 	    user.setTeacher(teacherService.getTeacherById(user.getTeacherId()));
 	    int iRet = userService.insertUser(user);
 	    long newId = user.getId();
-	    Map<String, Object> map = new HashMap<String, Object>();
+	    JSONObject jsonObject = new JSONObject();
 	    if (iRet == 0)
 	    {
 	        logger.info("addUsersProc: " + JSON.toJSON("新建失败：" + JSON.toJSONStringWithDateFormat(user, "yyyy-MM-dd HH:mm:ss")));
-	        map.put("status", "新建失败");
-	        map.put("retCode", -1);
+	        jsonObject.put("status", "新建失败");
+	        jsonObject.put("retCode", -1);
 	    } else
 	    {
 	        logger.info("addUsersProc: " + JSON.toJSON("新建用户：" + JSON.toJSONStringWithDateFormat(user, "yyyy-MM-dd HH:mm:ss")));
-	        map.put("status", "新建成功");
-	        map.put("retCode", 0);
+	        jsonObject.put("status", "新建成功");
+	        jsonObject.put("retCode", 0);
+	        jsonObject.put("newId", newId);
 	    }
-	    return map;
+	    return jsonObject;
 	}
 	
 	@RequestMapping(value = "/users", method = RequestMethod.GET)

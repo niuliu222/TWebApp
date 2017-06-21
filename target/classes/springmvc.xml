@@ -9,7 +9,7 @@
 
 	<!-- 配置自动扫描的包 -->
 	<context:component-scan
-		base-package="com.study.controller,com.study.service,com.study.converters"></context:component-scan>
+		base-package="com.study.controller,com.study.service,com.study.converters,com.study.config"></context:component-scan>
 	<!-- 配置视图解析器 -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -96,7 +96,7 @@
 	<!-- 对于mvc没有映射过的请求，交给容器默认handler来处理，例如：js,css等静态资源 -->
 	<mvc:default-servlet-handler />
 	<!-- FastJson 转换注册 -->
-	<bean id="stringHttpMessageConverter"
+	<!-- <bean id="stringHttpMessageConverter"
 		class="org.springframework.http.converter.StringHttpMessageConverter">
 		<constructor-arg value="UTF-8" index="0"></constructor-arg>
 		<property name="supportedMediaTypes">
@@ -113,12 +113,12 @@
 				<value>application/json;charset=UTF-8</value>
 			</list>
 		</property>
-		<!--设置fastjson特性 -->
+		设置fastjson特性
 		<property name="features">
 			<array>
-				<!--设置null值也要输出，fastjson默认是关闭的 -->
+				设置null值也要输出，fastjson默认是关闭的
 				<value>WriteMapNullValue</value>
-				<!--设置使用文本方式输出日期，fastjson默认是long -->
+				设置使用文本方式输出日期，fastjson默认是long
 				<value>WriteDateUseDateFormat</value>
 			</array>
 		</property>
@@ -140,23 +140,23 @@
 			<ref bean="stringHttpMessageConverter" />
 			<ref bean="fastJsonHttpMessageConverter" />
 		</mvc:message-converters>
-	</mvc:annotation-driven>
+	</mvc:annotation-driven> -->
 
 	<!-- 由Spring MVC框架自己处理静态资源，并添加一些有用的附加值功能 -->
-	<mvc:resources mapping="/resources/**"
+	<!-- <mvc:resources mapping="/resources/**"
 		location="/resources/commons/,/resources/themeDefault/" order="0"
 		cache-period="31556926">
 		<mvc:cache-control max-age="3600" cache-public="true" />
-	</mvc:resources>
+	</mvc:resources> -->
 	
 	<!-- 配置转换服务 <mvc:annotation-driven conversion-service="conversionService"> -->
-	<bean id="conversionService"
+	<!-- <bean id="conversionService"
 		class="org.springframework.context.support.ConversionServiceFactoryBean">
 		<property name="converters">
 			<set>
-				<!-- 自定义的转换类，首字母小写 -->
+				自定义的转换类，首字母小写
 				<ref bean="dateTimeConverter" />
 			</set>
 		</property>
-	</bean>
+	</bean> -->
 </beans>

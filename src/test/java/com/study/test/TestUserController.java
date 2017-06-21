@@ -56,7 +56,35 @@ public class TestUserController
     @Test
     public void testReturnPage() throws Exception
     {
-        mockMvc.perform(get("/users")).andExpect(status().isOk()).andExpect(view().name("users")).andDo(print());
+        mockMvc.perform(get("/v1/users")).andExpect(status().isOk()).andExpect(view().name("users")).andDo(print());
+    }
+
+    @Test
+    public void testReturnPageGet() throws Exception
+    {
+        mockMvc.perform(get("/v1/getRequest/1")).andExpect(status().isOk()).andExpect(view().name("success"))
+                .andDo(print());
+    }
+
+    @Test
+    public void testReturnPagePost() throws Exception
+    {
+        mockMvc.perform(post("/v1/postRequest")).andExpect(status().isOk()).andExpect(view().name("success"))
+                .andDo(print());
+    }
+
+    @Test
+    public void testReturnPageDelete() throws Exception
+    {
+        mockMvc.perform(delete("/v1/deleteRequest/1")).andExpect(status().isOk()).andExpect(view().name("success"))
+                .andDo(print());
+    }
+
+    @Test
+    public void testReturnPagePut() throws Exception
+    {
+        mockMvc.perform(put("/v1/putRequest/1")).andExpect(status().isOk()).andExpect(view().name("success"))
+                .andDo(print());
     }
 
     @Test
@@ -64,7 +92,7 @@ public class TestUserController
     {
         // .accept方法是设置客户端可识别的内容类型
         // .contentType,设置请求头中的Content-Type字段,表示请求体的内容类型
-        mockMvc.perform(get("/getUsers").accept(MediaType.APPLICATION_JSON_UTF8)
+        mockMvc.perform(get("/v1/getUsers").accept(MediaType.APPLICATION_JSON_UTF8)
                 .contentType(MediaType.APPLICATION_JSON_UTF8).param("page", "1").param("rows", "10")).andDo(print())
                 .andExpect(status().isOk()).andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(jsonPath("$.total").exists()).andExpect(jsonPath("$.rows").isArray())
@@ -75,7 +103,7 @@ public class TestUserController
     public void test001RealApiAddUser() throws Exception
     {
         MvcResult ret = mockMvc
-                .perform(post("/users").accept(MediaType.APPLICATION_JSON_UTF8)
+                .perform(post("/v1/users").accept(MediaType.APPLICATION_JSON_UTF8)
                         .contentType(MediaType.APPLICATION_JSON_UTF8).param("name", "user1").param("age", "23")
                         .param("gender", "女").param("email", "user1@126.com").param("teacherId", "1")
                         .param("createTime", "2017-06-08 13:59:12").param("loginTime", "2017-06-08 13:59:12"))
@@ -87,24 +115,23 @@ public class TestUserController
         JSONObject jsonObject = JSONObject.parseObject(strContent);
         lastNewId = jsonObject.get("newId").toString();
     }
-    
+
     @Test
     public void test002RealApiUpdateUser() throws Exception
     {
-        mockMvc.perform(put("/users/" + lastNewId).accept(MediaType.APPLICATION_JSON_UTF8)
-                        .contentType(MediaType.APPLICATION_JSON_UTF8).param("name", "user1").param("age", "33")
-                        .param("gender", "男").param("email", "user1@126.com").param("teacherId", "2")
-                        .param("createTime", "2017-06-08 13:59:12").param("loginTime", "2017-06-08 13:59:12"))
-                .andDo(print()).andExpect(status().isOk())
-                .andExpect(content().contentType("application/json;charset=UTF-8"))
+        mockMvc.perform(put("/v1/users/" + lastNewId).accept(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON_UTF8).param("name", "user1").param("age", "33")
+                .param("gender", "男").param("email", "user1@126.com").param("teacherId", "2")
+                .param("createTime", "2017-06-08 13:59:12").param("loginTime", "2017-06-08 13:59:12")).andDo(print())
+                .andExpect(status().isOk()).andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(jsonPath("$.retCode").value(0)).andExpect(jsonPath("$.status").value("更新成功"));
-        
+
     }
 
     @Test
     public void test003RealApiDeleteUser() throws Exception
     {
-        mockMvc.perform(delete("/users/" + lastNewId).accept(MediaType.APPLICATION_JSON_UTF8)
+        mockMvc.perform(delete("/v1/users/" + lastNewId).accept(MediaType.APPLICATION_JSON_UTF8)
                 .contentType(MediaType.APPLICATION_JSON_UTF8)).andDo(print()).andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(jsonPath("$.retCode").value(0)).andExpect(jsonPath("$.status").value("删除成功"));

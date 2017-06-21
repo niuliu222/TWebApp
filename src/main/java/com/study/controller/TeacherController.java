@@ -16,7 +16,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSON;
 import com.study.model.Teacher;
 import com.study.service.ITeacherService;
+import com.study.utils.ApiVersion;
 
+@RequestMapping("/{version}/")
+@ApiVersion(1)
 @Controller
 public class TeacherController
 {

@@ -22,7 +22,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.study.model.User;
 import com.study.service.ITeacherService;
 import com.study.service.IUserService;
+import com.study.utils.ApiVersion;
 
+@RequestMapping("/{version}/")
+@ApiVersion(1)
 @Controller
 public class UserController
 {
@@ -151,4 +154,20 @@ public class UserController
 		System.out.println("getRequestProc" + id);
 		return "success";
 	}
+	
+	@ApiVersion(3)
+    @RequestMapping("/getRequest/{id}")
+    public String getRequestProc3(@PathVariable("id") Integer id,HttpServletRequest request, HttpServletResponse response)
+    {
+        System.out.println("getRequestProc3: " + id);
+        return "success";
+    }
+    
+    @ApiVersion(5)
+    @RequestMapping("getRequest/{id}")
+    public String getRequestProc5(@PathVariable("id") Integer id)
+    {
+        System.out.println("getRequestProc5: " + id);
+        return "success";
+    }
 }

@@ -7,24 +7,24 @@
 <title>Insert title here</title>
 <!-- 下面两个必须引用 -->
 <script type="text/javascript"
-    src="resources/jsExt/jquery-easyui-1.5.2/jquery.min.js"></script>
+    src="../resources/jsExt/jquery-easyui-1.5.2/jquery.min.js"></script>
 <script type="text/javascript"
-    src="resources//jsExt/jquery-easyui-1.5.2/jquery.easyui.min.js"></script>
+    src="../resources//jsExt/jquery-easyui-1.5.2/jquery.easyui.min.js"></script>
 <!-- 国际化文件 -->
 <script type="text/javascript"
-    src="resources//jsExt/jquery-easyui-1.5.2/locale/easyui-lang-zh_CN.js"></script>
+    src="../resources//jsExt/jquery-easyui-1.5.2/locale/easyui-lang-zh_CN.js"></script>
 <!-- 默认样式 -->
 <link rel="stylesheet"
-    href="resources/jsExt/jquery-easyui-1.5.2/themes/default/easyui.css">
+    href="../resources/jsExt/jquery-easyui-1.5.2/themes/default/easyui.css">
 <!-- 图标 -->
 <link rel="stylesheet"
-    href="resources/jsExt/jquery-easyui-1.5.2/themes/icon.css">
+    href="../resources/jsExt/jquery-easyui-1.5.2/themes/icon.css">
 <!-- 自定义js -->
-<script type="text/javascript" src="resources/js/teacherFormatter.js"></script>
+<script type="text/javascript" src="../resources/js/teacherFormatter.js"></script>
 <!-- 自定义的js脚本 -->
-<script type="text/javascript" src="resources/js/commons.js"></script>
-<script type="text/javascript" src="resources/js/user/userOper.js"></script>
-<link rel="stylesheet" href="resources/css/user.css">
+<script type="text/javascript" src="../resources/js/commons.js"></script>
+<script type="text/javascript" src="../resources/js/user/userOper.js"></script>
+<link rel="stylesheet" href="../resources/css/user.css">
 
 </head>
 <body>
@@ -32,7 +32,7 @@
         <table id="dg" class="easyui-datagrid" title="用户列表"
             style="width: 100%; height: 400px;pagination-num{width:200px}"
             data-options="rownumbers:true,striped:true,fitColumns:true,singleSelect:true,autoRowHeight:true,pagination:true,
-                pageSize:12,pageList:[12,100,200,300],url:'${pageContext.request.contextPath}/getUsers',method:'get',toolbar:'#toolbar'">
+                pageSize:12,pageList:[12,100,200,300],url:'${pageContext.request.contextPath}/v1/getUsers',method:'get',toolbar:'#toolbar'">
             <thead>
                 <tr>
                     <th data-options="field:'id',width:100">ID</th>
@@ -86,7 +86,7 @@
             <div class="fitem">
                 <label for="teacherId">教 师:</label> <input id="cc"
                     class="easyui-combobox" name="teacherId"
-                    data-options="valueField:'id',textField:'name',panelHeight:80,editable:false,method:'get',url:'${pageContext.request.contextPath}/getTeacherComboData'">
+                    data-options="valueField:'id',textField:'name',panelHeight:80,editable:false,method:'get',url:'${pageContext.request.contextPath}/v1/getTeacherComboData'">
             </div>
         </form>
     </div>

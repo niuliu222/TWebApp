@@ -7,14 +7,14 @@ $(function() {
 });
 
 $('#dg').pagination({
-	pageSize: 20,//每页显示的记录条数，默认为10 
+    pageSize: 20,//每页显示的记录条数，默认为10 
     pageList: [20, 50, 100],//可以设置每页记录条数的列表 
 });
 
 function insert() {
     $('#dlg').dialog('open').dialog('setTitle', '新建用户');
     $('#fm').form('clear');
-    url = ctx + '/users';
+    url = ctx + '/v1/users';
     type = insert;
 }
 
@@ -24,7 +24,7 @@ function edit() {
         $('#dlg').dialog('open').dialog('setTitle', '编辑用户信息');
         $('#fm').form('load', row);
         //setCheckedValue(document.forms['fm'].elements['gender'], row['gender']);
-        url = 'users/' + row.id;
+        url = ctx + '/v1/users/' + row.id;
         type = edit;
     }
 }
@@ -64,7 +64,7 @@ function del() {
     if (row) {
         $.messager.confirm('确认', '请确认删除已选择用户?', function(r) {
             if (r) {
-                $.post('users/' + row.id, {
+                $.post(ctx + '/v1/users/' + row.id, {
                     _method : 'DELETE'
                 }, function(result) {
                     if (result.status != null) {

@@ -142,6 +142,13 @@
 		</mvc:message-converters>
 	</mvc:annotation-driven>
 
+	<!-- 由Spring MVC框架自己处理静态资源，并添加一些有用的附加值功能 -->
+	<mvc:resources mapping="/resources/**"
+		location="/resources/commons/,/resources/themeDefault/" order="0"
+		cache-period="31556926">
+		<mvc:cache-control max-age="3600" cache-public="true" />
+	</mvc:resources>
+	
 	<!-- 配置转换服务 <mvc:annotation-driven conversion-service="conversionService"> -->
 	<bean id="conversionService"
 		class="org.springframework.context.support.ConversionServiceFactoryBean">

@@ -14,3 +14,10 @@ SSM支持RESTful风格的服务，使用JUnit Test测试了service和controller
 
 相关文章和视频详见我的技术博客
 http://blog.csdn.net/aslucky
+
+
+==========================================
+LDW
+=========================================
+404 not found:
+    tomcat configure -> vm option ->设置-Dfile.encoding=UTF-8

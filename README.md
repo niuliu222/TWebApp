@@ -16,9 +16,7 @@ SSM支持RESTful风格的服务，使用JUnit Test测试了service和controller
 http://blog.csdn.net/aslucky
 
 
-==========================================
-LDW
-=========================================
+# TWebApp
 404 not found:
     tomcat configure -> vm option ->设置-Dfile.encoding=UTF-8
     

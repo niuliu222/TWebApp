@@ -21,3 +21,6 @@ LDW
 =========================================
 404 not found:
     tomcat configure -> vm option ->设置-Dfile.encoding=UTF-8
+    
+步骤：
+    一、使用db.sql初始化数据库
